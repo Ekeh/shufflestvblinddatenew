@@ -1,0 +1,17 @@
+
+EPISODES JOB
+When they click YouTube link, takes them to the video on YouTube.
+When they click the Shuffles link, checks there is enough money (to be determined but test with N200) from their wallet, deducts it and opens the videos on ShufflesTV.com
+If there is not up to the money specified in the wallet, redirects to the Fund Wallet page automatically
+There is a WhatsApp chat link on the “View Episodes” like is in the menu bar now on the publicly hosted website. A different number will be provided for this page
+
+NEXT JOB AFTER VIEW EPISODES JOB
+On the general menu bar, create a link “Matches”.
+When they click on Matches, it will take them to what am currently seeing as the admin but only this time, with the pics side by side
+And a VOTE button attached to each match
+Like the Unmatch button when they want to unmatch themselves
+Each vote deducts 20 units from their wallet
+Top vote getters at the Top
+Votes displayed in %
+To the bottom vote getters
+So they can select any number of votes, the system multiplies it by N20 and if the amount can be found in the wallet of the voter, deducts it and adds it to the % of votes of the couple
