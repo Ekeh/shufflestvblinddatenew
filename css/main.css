@@ -4213,3 +4213,12 @@ html:not([dir="rtl"]) .noUi-horizontal .noUi-handle {
 .clear-fix{
   clear: both;
 }
+.table-response{
+  overflow-x:auto;
+}
+
+@media (max-width: 768px) {
+  .table-response {
+    width: 70%;
+  }
+}

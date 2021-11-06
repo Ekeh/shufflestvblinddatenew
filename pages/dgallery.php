@@ -29,7 +29,7 @@ function insert_date_request($db, $user_id, $to_user_id)
 if(isset($_COOKIE['userid']))
 {
     if(isset($_GET['u'])){
-        $uid=$db -> real_escape_string($_GET['u']);
+        $uid = $db -> real_escape_string($_GET['u']);
     }else{
         echo "<div class='alert alert-danger'> Unknown User ID</div>";
         ?>
@@ -44,12 +44,13 @@ if(isset($_COOKIE['userid']))
     }
 
     $sql_user = mysqli_query($db, "SELECT id FROM `tbl_taspp_subscription` WHERE user_id = '$uid' AND status = '" . TASPP_SUBSCRIPTION_ACTIVE ."'");
+
     if(mysqli_num_rows($sql_user) != '0')
     {
         ?>
         <script type="text/javascript">
             setTimeout(function(){
-                window.location.href = '?p=tasppvote&token=<?=$userid?>';
+                window.location.href = '?p=tasppvote&token=<?=$_GET['u']?>';
             }, 500);
         </script>
         <?php

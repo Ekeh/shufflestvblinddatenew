@@ -48,6 +48,7 @@ $user_id = $_COOKIE['userid'];
                         <div class="dashbox__table-wrap mCustomScrollbar _mCS_2" style="overflow: visible;">
                             <div id="mCSB_2" class="mCustomScrollBox mCS-custom-bar2 mCSB_horizontal mCSB_outside" tabindex="0" style="max-height: none;">
                                 <div id="mCSB_2_container" class="mCSB_container" style="position: relative; top: 0px; left: 0px; width: 501px; min-width: 100%; overflow-x: auto;" dir="ltr">
+                                    <div class="table-response">
                                     <table class="main__table main__table--dash">
                                         <thead>
                                         <tr>
@@ -97,7 +98,19 @@ $user_id = $_COOKIE['userid'];
 
                                         </tbody>
                                     </table>
-                                </div></div><div id="mCSB_2_scrollbar_horizontal" class="mCSB_scrollTools mCSB_2_scrollbar mCS-custom-bar2 mCSB_scrollTools_horizontal" style="display: block;"><div class="mCSB_draggerContainer"><div id="mCSB_2_dragger_horizontal" class="mCSB_dragger" style="position: absolute; min-width: 30px; display: block; width: 499px; max-width: 490px; left: 0px;"><div class="mCSB_dragger_bar"></div><div class="mCSB_draggerRail"></div></div></div></div></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="mCSB_2_scrollbar_horizontal" class="mCSB_scrollTools mCSB_2_scrollbar mCS-custom-bar2 mCSB_scrollTools_horizontal" style="display: block;">
+                                <div class="mCSB_draggerContainer">
+                                    <div id="mCSB_2_dragger_horizontal" class="mCSB_dragger" style="position: absolute; min-width: 30px; display: block; width: 499px; max-width: 490px; left: 0px;">
+                                        <div class="mCSB_dragger_bar"></div><div class="mCSB_draggerRail">
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
             </div>
         </div>
