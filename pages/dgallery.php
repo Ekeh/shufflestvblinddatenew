@@ -11,6 +11,7 @@ if(!isset($_COOKIE['userid'])){
     exit;
 }
 $userid = $_COOKIE['userid'];
+
 ?>
 <?php
 $d='';
@@ -40,6 +41,19 @@ if(isset($_COOKIE['userid']))
         <?php
         exit;
 
+    }
+
+    $sql_user = mysqli_query($db, "SELECT id FROM `tbl_taspp_subscription` WHERE user_id = '$uid' AND status = '" . TASPP_SUBSCRIPTION_ACTIVE ."'");
+    if(mysqli_num_rows($sql_user) != '0')
+    {
+        ?>
+        <script type="text/javascript">
+            setTimeout(function(){
+                window.location.href = '?p=tasppvote&token=<?=$userid?>';
+            }, 500);
+        </script>
+        <?php
+        exit;
     }
 
 

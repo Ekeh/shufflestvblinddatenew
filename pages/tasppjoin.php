@@ -50,12 +50,12 @@ if(isset($_POST['submitjoin']))
        </script>
        <?php
    }else{
-$sql_check =  mysqli_query($db, "SELECT id FROM `tbl_taspp_subscription` WHERE user_id = '$user_id' AND category_id = '$category_id'");
+$sql_check =  mysqli_query($db, "SELECT id FROM `tbl_taspp_subscription` WHERE user_id = '$user_id'");
 if(mysqli_num_rows($sql_check) != '0')
 {
     ?>
     <script type="text/javascript">
-        alert("You are already subscribed to this category.");
+        alert("You are already subscribed to a category.");
     </script>
     <?php
 }else {
@@ -155,9 +155,9 @@ if(mysqli_num_rows($sql_check) != '0')
                                             <div class="col-12">
                                                 <div class="form__group">
                                                     <label class="form__label" for="email">Account Number</label>
-                                                    <input id="account-number" type="number" required value="<?=$_POST['account_number']?>" name="account_number" class="form__input no-margin-bottom" placeholder="Enter Account Number">
-                                                    <input id="account-name-hidden" type="hidden" name="account_name" <?=$_POST['account_name']?> />
-                                                    <div class="margin-left-10"><span id="account-name" class="section__text"><?=$_POST['account_name']?></span></div>
+                                                    <input id="account-number" type="number" required value="<?=isset($_POST['account_number']) ? $_POST['account_number'] : ''?>" name="account_number" class="form__input no-margin-bottom" placeholder="Enter Account Number">
+                                                    <input id="account-name-hidden" type="hidden" name="account_name" value="<?=isset($_POST['account_name']) ? $_POST['account_name'] : ''?>" />
+                                                    <div class="margin-left-10"><span id="account-name" class="section__text"><?=isset($_POST['account_name']) ? $_POST['account_name'] : ''?></span></div>
                                                 </div>
                                             </div>
 

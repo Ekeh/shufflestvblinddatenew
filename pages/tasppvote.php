@@ -10,122 +10,124 @@ if(!isset($_COOKIE['userid'])){
     <?php
     exit;
 }
+
 if(!isset($_GET['token'])){
     ?>
     <script type="text/javascript">
-        alert("Required parameters missing");
+        alert("Please, select a user to vote for.");
         setTimeout(function(){
-            window.location.href = 'index.php?p=taspp';
+            window.location.href = 'index.php?p=gallery';
         }, 1000);
     </script>
     <?php
     exit;
 }
+
 $user_id = $_COOKIE['userid'];
-$category_id = mysqli_escape_string($db,  $_GET['token']);
-$category_sql = mysqli_query($db,"SELECT * FROM `tbl_category` WHERE id = '$category_id' AND is_available='1'");
-$nu =mysqli_num_rows($category_sql);
+$user_to_vote_id = mysqli_real_escape_string($db, $_GET['token']);
+$sql_user = mysqli_query($db, "SELECT u.userid, u.username, u.fname, u.lname, u.photo, u.description, c.id AS category_id, c.name AS category_name, 
+                                ts.id AS subscription_id
+                                FROM tbl_users u 
+                                JOIN `tbl_taspp_subscription` ts ON ts.user_id = u.userid
+                                JOIN `tbl_category` c ON ts.category_id = c.id
+                                WHERE u.userid = '$user_to_vote_id' AND ts.status = '" . TASPP_SUBSCRIPTION_ACTIVE ."'");
+$nu =mysqli_num_rows($sql_user);
 if($nu == 0){
     ?>
     <script type="text/javascript">
-        alert("Category not found.");
+        alert("User not found.");
         setTimeout(function(){
-            window.location.href = 'index.php?p=taspp';
+            window.location.href = 'index.php?p=gallery';
         }, 1000);
     </script>
     <?php
     exit;
 }
-$category = mysqli_fetch_assoc($category_sql);
+$user_to_vote = mysqli_fetch_assoc($sql_user);
+
+if(isset($_POST['vote']))
+{
+    $total_vote = intval($_POST['total_vote']);
+    $category_id = $user_to_vote['category_id'];
+
+    if($total_vote < 1)
+    {
+        ?>
+        <script type="text/javascript">
+            alert("Vote must be at least one.");
+        </script>
+        <?php
+    }else{
+        //TODO: charge users wallet
+        $checkCredit = mysqli_query($db,"SELECT credit FROM  tbl_users  WHERE userid='$user_id'");
+        $credit = 0;
+        if($row = mysqli_fetch_assoc($checkCredit)) {
+            $credit =  intval($row['credit']);
+        }
+        $total_vote = $total_vote * TASPP_VOTE_AMOUNT;
+        if($credit < $total_vote) {
+            ?>
+            <script type="text/javascript">
+                alert("Insufficient credit. Please, fund your wallet.");
+            </script>
+            <?php
+        }else {
+            $sql_insert = mysqli_query($db,"INSERT INTO `tbl_taspp_vote_record`(`from_user_id`, `to_user_id`, `category_id`, `amount`, `created_at`) 
+                            VALUES ('$user_id','$user_to_vote_id','$category_id','$total_vote', '" . date('Y-m-d H:i:s') . "')");
+              if(mysqli_affected_rows($db) > 0){
+                  $debit = mysqli_query($db, "UPDATE  tbl_users set credit=credit - '" . $total_vote . "'  WHERE userid='$user_id'");
+                  unset($_POST);
+                  ?>
+                  <script type="text/javascript">
+                      alert("You have successfully voted.");
+                  </script>
+                  <?php
+              }else {
+                  ?>
+                  <script type="text/javascript">
+                      alert("Error occurred while casting your vote.");
+                  </script>
+                  <?php
+              }
+        }
+    }
+}
+
 ?>
-<section class="section section--first section--bg section-mobile-view" data-bg="img/section/section.jpg" style="background: url(&quot;img/section/section.jpg&quot;) center center / cover no-repeat;">
+
+<section class="section section--details section--bg section-mobile-view" data-bg="img/section/details.jpg" style="background: url(&quot;img/section/details.jpg&quot;) center center / cover no-repeat;">
+    <!-- details content -->
     <div class="container">
         <div class="row">
-            <div class="col-12">
-                <div class="section__wrap">
-                    <!-- section title -->
-                    <h2 class="section__title">TASPP JOIN</h2>
-                    <!-- end section title -->
-
-                    <!-- breadcrumb -->
-                    <ul class="breadcrumb">
-                        <li class="breadcrumb__item"><a href="index.php">Home</a></li>
-                        <li class="breadcrumb__item breadcrumb__item--active">TASPP JOIN</li>
-                    </ul>
-                    <!-- end breadcrumb -->
+            <!-- player -->
+            <div class="col-12 col-xl-4 col-sm-6">
+                <div class="card__cover">
+                    <img src="uploads/profile/<?=$user_to_vote['photo']; ?>" alt="<?=$user_to_vote['username']?>">
                 </div>
             </div>
-        </div>
-    </div>
-</section>
+            <!-- end player -->
+            <!-- content -->
+            <div class="col-12 col-xl-4 col-sm-6">
+                <div class="card card--details">
+                    <div class="card__content">
+                        <ul class="card__meta">
+                            <li><h1 class="section__title section__title--mb no-margin-bottom"><?=$user_to_vote['username'] ?></h1></li>
+                            <li><span>Description:</span><?=$user_to_vote['description']?></li>
+                            <li><span>Category:</span><?=$user_to_vote['category_name']?></li>
+                        </ul>
+                            <form class="form form--profile" action="<?=$_SERVER['PHP_SELF']."?".$_SERVER['QUERY_STRING']?>" method="post">
 
-<section class="section">
-    <div class="container">
-        <div class="row">
-                <div class="col-12">
-                    <div class="dashbox">
-
-                        <div class="dashbox__title">
-                            <h3><i class="icon ion-ios-list"></i> <?=$category['name']?></h3>
-
-                        </div>
-
-                        <div class="dashbox__table-wrap mCustomScrollbar _mCS_2" style="overflow: visible;">
-                            <div id="mCSB_2" class="mCustomScrollBox mCS-custom-bar2 mCSB_horizontal mCSB_outside" tabindex="0" style="max-height: none;">
-                                <div id="mCSB_2_container" class="mCSB_container" style="position: relative; top: 0px; left: 0px; width: 501px; min-width: 100%; overflow-x: auto;" dir="ltr">
-                                    <form action="<?=$_SERVER['PHP_SELF']."?".$_SERVER['QUERY_STRING']?>" class="form form--profile" method="post" enctype="multipart/form-data">
-                                        <div class="row row--form padding-20">
-                                            <div class="col-12">
-                                                <div class="alert alert-info">Enter your bank details to join <b><?=$category['name']?></b>.
-                                                <p>A profile will be generated for you which you can share to be voted for. You will make <?=TASPP_VOTE_PERCENTAGE?>% of all your votes at the end of the voting cycle. </p></div>
-                                            </div>
-                                            <div class="col-12">
-                                                <h4 class="form__title">Account Details</h4>
-                                            </div>
-                                            <div class="col-12">
-                                                <div class="form__group">
-                                                    <?php
-                                                    $banks_sql = mysqli_query($db,"SELECT * FROM `tbl_banks` WHERE is_available='1'");
-                                                    ?>
-                                                    <label class="form__label" for="gender">Bank</label>
-                                                    <select name="gender" required id="gender" class="form__select">
-                                                        <option value="">&lt;-- Choose Bank --&gt;</option>
-                                                    <?php
-                                                    while($bank = mysqli_fetch_assoc($banks_sql)){
-                                                    ?>
-                                                        <option value="<?=$bank['code']?>"><?=$bank['name']?></option>
-                                                    <?php
-                                                    }
-                                                    ?>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <div class="col-12">
-                                                <div class="form__group">
-                                                    <label class="form__label" for="email">Account Number</label>
-                                                    <input id="email" type="number" required name="email" class="form__input" placeholder="Enter Account Number">
-                                                </div>
-                                            </div>
-
-                                            <div class="col-12">
-                                                <button class="form__btn" name="updatenow" value="1" type="submit" >JOIN</button>
-                                            </div>
-                                        </div>
-                                    </form>
+                                <div class="alert alert-info"><strong>Note:</strong> Each vote costs N<?=TASPP_VOTE_AMOUNT?>. You can enter as many votes as you wish.</div>
+                                <div class="form__group">
+                                    <input class="form__input" required type="number" name="total_vote" value="<?=!empty($_POST['total_vote'])? $_POST['total_vote'] : ''?>" placeholder="Enter your votes."/>
                                 </div>
-                            </div>
-                            <div id="mCSB_2_scrollbar_horizontal" class="mCSB_scrollTools mCSB_2_scrollbar mCS-custom-bar2 mCSB_scrollTools_horizontal" style="display: block;"
-                            ><div class="mCSB_draggerContainer"><div id="mCSB_2_dragger_horizontal" class="mCSB_dragger" style="position: absolute; min-width: 30px; display: block; width: 499px; max-width: 490px; left: 0px;">
-                                        <div class="mCSB_dragger_bar"></div><div class="mCSB_draggerRail"></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                                <button class="btn btn-default"  type="submit" name="vote" value="1">Vote </button>
+                            </form>
                     </div>
+                </div>
             </div>
+            <!-- end content -->
+
         </div>
-
-        
-
-    </div>
+        <!-- end details content -->
 </section>
