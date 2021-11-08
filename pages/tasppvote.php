@@ -44,7 +44,27 @@ if($nu == 0){
     exit;
 }
 $user_to_vote = mysqli_fetch_assoc($sql_user);
+$sql_total_votes = mysqli_query($db, "SELECT SUM(amount) AS total_votes FROM tbl_taspp_vote_record WHERE `to_user_id` = '$user_to_vote_id'");
+$total_votes = mysqli_fetch_assoc($sql_total_votes);
+$total_votes_count = intval($total_votes['total_votes']) / TASPP_VOTE_AMOUNT;
+$total_votes_count = process_votes($total_votes_count);
 
+function process_votes($total_votes)
+{
+    if($total_votes < 1000)
+        return $total_votes;
+    if($total_votes >= 1000 && $total_votes < 1000000)
+    {
+        $total_votes = number_format($total_votes / 1000, 1) . 'K';
+        return $total_votes;
+    }
+    if($total_votes >= 1000000)
+    {
+        $total_votes = number_format($total_votes / 1000000, 1) . 'M';
+        return $total_votes;
+    }
+    return 0;
+}
 if(isset($_POST['vote']))
 {
     $total_vote = intval($_POST['total_vote']);
@@ -121,7 +141,7 @@ if(isset($_POST['vote']))
                                 <div class="form__group">
                                     <input class="form__input" required type="number" name="total_vote" value="<?=!empty($_POST['total_vote'])? $_POST['total_vote'] : ''?>" placeholder="Enter your votes."/>
                                 </div>
-                                <button class="btn btn-default"  type="submit" name="vote" value="1">Vote </button>
+                                <button class="btn btn-default"  type="submit" name="vote" value="1">Vote <span style="background-color: green; border-radius: 10px; padding: 2px; display: inline-block; margin-left: 20px;min-width: 40px;"><?=$total_votes_count?></span></button>
                             </form>
                     </div>
                 </div>

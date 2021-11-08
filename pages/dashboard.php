@@ -6,9 +6,28 @@
  * Time: 5:13 AM
  */
 ?>
-
 <!-- home -->
+<style>
+    .blink_me {
+        animation: blinker 1s linear infinite;
+    }
+
+    @keyframes blinker {
+        50% {
+            opacity: 0;
+        }
+    }
+</style>
 <section class="home section-mobile-view">
+    <section class="section__text news-wrapper no-margin-bottom">
+            <marquee scrollamount="10" direction="left">
+                <p>Watch The BlindDate House Reality TV Dating Game Show Season 1, Episode 1 at 7pm, November 6th, 2021.
+                    Audition for Partner Persons & Brands for Season 2 of The BlindDate House Reality TV Dating Game Show begins on Sunday, 7th November, 2021.</p>
+            </marquee>
+
+    </section>
+    <section class="section__text blink_me" style="position: relative; z-index: 9999;">Season 1 is live now... <a href="index.php?p=episodes"> Click here to watch.</a></section>
+
     <!-- home bg -->
     <div class="owl-carousel home__bg">
         <div class="item home__cover" data-bg="img/home/home__bg.jpg"></div>

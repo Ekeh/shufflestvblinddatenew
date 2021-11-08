@@ -23,6 +23,7 @@ if(!isset($_GET['token']))
     <?php
     exit;
 }
+$category_id = mysqli_escape_string($db, $_GET['token']);
 ?>
 
 <section class="section section--first section--bg section-mobile-view" data-bg="img/section/section.jpg" style="background: url(&quot;img/section/section.jpg&quot;) center center / cover no-repeat;">
@@ -76,6 +77,7 @@ if(!isset($_GET['token']))
                                         LEFT JOIN tbl_category vr ON vr.id = sub.category_id
                                         LEFT JOIN tbl_taspp_vote_record bd ON bd.to_user_id = sub.user_id
                                         LEFT JOIN tbl_users tu ON sub.user_id = tu.userid
+                                        WHERE vr.id = '$category_id'
                                         ORDER BY bd.amount DESC");
                               $request_total_votes = [];
                               $total_votes_in_system = 0;
@@ -102,15 +104,16 @@ if(!isset($_GET['token']))
                                   if ($item1 == $item2) return 0;
                                   return $item1 < $item2 ? 1 : -1;
                               });
-                              // dump($request_total_votes);
                               foreach ($request_total_votes as $key => $value) {
                                   $matched_users = $match_user_info[$key];
+                                  $percent_vote= 0;
+                                  if($total_votes_in_system > 0)
                                   $percent_vote = number_format((float)(($value / $total_votes_in_system) * 100), 1, '.', '');
                                   ?>
                                   <tr style="border-bottom: 1px dotted #fff;">
                                       <td style="padding-bottom: 10px;">
                                           <div class="main__table-text">
-                                              <a href="#" title="<?=$matched_users['username']?>">
+                                              <a href="index.php?p=tasppvote&token=<?=$matched_users['user_id']?>" title="<?=$matched_users['username']?>">
                                                   <img src="uploads/profile/<?=$matched_users['photo']?>" alt="<?=$matched_users['username']?>" title="<?=$matched_users['username']?>"  width="150" />
                                               </a>
                                           </div>

@@ -4222,3 +4222,13 @@ html:not([dir="rtl"]) .noUi-horizontal .noUi-handle {
     width: 70%;
   }
 }
+.news-wrapper{
+  background-color: #f33b01;
+  color: white;
+  padding-top: 14px;
+  line-height: 20px;
+  font-size: 1.5em;
+  position: relative;
+  top: -10px;
+  max-height: 54px;
+}
