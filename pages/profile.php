@@ -84,10 +84,10 @@ if(isset($_POST['updatenow'])){
                 if($image==''){
 
                     $sql3 = mysqli_query(
-                        $db,"UPDATE tbl_users set fname='$strfname',lname='$strlname', username='$username', gender='$gender',profile_type='" . PROFILE_FREE . "', description = '$description' where userid='$user_id'");
+                        $db,"UPDATE tbl_users set fname='$strfname',lname='$strlname', username='$username', gender='$gender', description = '$description' where userid='$user_id'");
                 }else{
                     $sql3 = mysqli_query(
-                        $db,"UPDATE tbl_users set fname='$strfname',lname='$strlname', username='$username',gender='$gender',profile_type='" . PROFILE_FREE . "',photo='$imagename', description = '$description' where userid='$user_id'");
+                        $db,"UPDATE tbl_users set fname='$strfname',lname='$strlname', username='$username',gender='$gender',photo='$imagename', description = '$description' where userid='$user_id'");
                 }
                 if($sql3){
 

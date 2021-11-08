@@ -126,7 +126,7 @@ $userid=$_COOKIE['userid'];
                 $page = isset($_GET['page']) ? $db->real_escape_string($_GET['page']) : 1;
                 $limit = 50;
                 // Find out how many items are in the table
-                $sqlCount = mysqli_query($db,"SELECT COUNT(*) AS total FROM tbl_users WHERE profile_type='" . PROFILE_FREE . "' AND userid != '$userid' ");
+                $sqlCount = mysqli_query($db,"SELECT COUNT(*) AS total FROM tbl_users WHERE profile_type='" . PROFILE_FREE . "' AND photo != '' ");
                 $total = mysqli_fetch_assoc($sqlCount);
                 $total = intval($total['total']);
                 //var_dump($total);
@@ -156,7 +156,7 @@ $userid=$_COOKIE['userid'];
                // $pagination = "<div id='paging'><p>, $prevlink,  Page , $page, of , $pages, pages, displaying , $start, -, $end, of, $total, results, $nextlink, </p></div>";
 
 
-                $sql = mysqli_query($db,"SELECT * FROM tbl_users WHERE profile_type='" . PROFILE_FREE . "' ORDER BY userid DESC LIMIT $limit OFFSET $offset");
+                $sql = mysqli_query($db,"SELECT * FROM tbl_users WHERE profile_type='" . PROFILE_FREE . "' AND photo != '' ORDER BY userid DESC LIMIT $limit OFFSET $offset");
                 $num=mysqli_num_rows($sql);
 
                 if($num=='0'){
