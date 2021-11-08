@@ -156,7 +156,7 @@ $userid=$_COOKIE['userid'];
                // $pagination = "<div id='paging'><p>, $prevlink,  Page , $page, of , $pages, pages, displaying , $start, -, $end, of, $total, results, $nextlink, </p></div>";
 
 
-                $sql = mysqli_query($db,"SELECT * FROM tbl_users WHERE profile_type='" . PROFILE_FREE . "' AND userid != '$userid' ORDER BY userid DESC LIMIT $limit OFFSET $offset");
+                $sql = mysqli_query($db,"SELECT * FROM tbl_users WHERE profile_type='" . PROFILE_FREE . "' ORDER BY userid DESC LIMIT $limit OFFSET $offset");
                 $num=mysqli_num_rows($sql);
 
                 if($num=='0'){
