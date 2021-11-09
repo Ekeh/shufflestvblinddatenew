@@ -24,6 +24,8 @@ if(!isset($_GET['token']))
     exit;
 }
 $category_id = mysqli_escape_string($db, $_GET['token']);
+$category_sql = mysqli_query($db,"SELECT * FROM `tbl_category` WHERE id = '$category_id' AND is_available='1'");
+$category = mysqli_fetch_assoc($category_sql);
 ?>
 
 <section class="section section--first section--bg section-mobile-view" data-bg="img/section/section.jpg" style="background: url(&quot;img/section/section.jpg&quot;) center center / cover no-repeat;">
@@ -32,13 +34,13 @@ $category_id = mysqli_escape_string($db, $_GET['token']);
             <div class="col-12">
                 <div class="section__wrap">
                     <!-- section title -->
-                    <h2 class="section__title">TASPP Results</h2>
+                    <h2 class="section__title"><?=$category['name']?> Results</h2>
                     <!-- end section title -->
 
                     <!-- breadcrumb -->
                     <ul class="breadcrumb">
                         <li class="breadcrumb__item"><a href="index.php">Home</a></li>
-                        <li class="breadcrumb__item breadcrumb__item--active">TASPP Results</li>
+                        <li class="breadcrumb__item breadcrumb__item--active"><?=$category['name']?> Results</li>
                     </ul>
                     <!-- end breadcrumb -->
                 </div>
@@ -51,7 +53,7 @@ $category_id = mysqli_escape_string($db, $_GET['token']);
     <div class="container">
         <div class="dashbox">
             <div class="dashbox__title">
-                <h3><i class="icon ion-ios-trophy"></i> VOTES</h3>
+                <h3><i class="icon ion-ios-trophy"></i><?=$category['name']?>  - VOTES</h3>
 
                 <div class="dashbox__wrap">
                     <a class="dashbox__refresh" href=""><i class="icon ion-ios-refresh"></i></a>
@@ -77,7 +79,7 @@ $category_id = mysqli_escape_string($db, $_GET['token']);
                                         LEFT JOIN tbl_category vr ON vr.id = sub.category_id
                                         LEFT JOIN tbl_taspp_vote_record bd ON bd.to_user_id = sub.user_id
                                         LEFT JOIN tbl_users tu ON sub.user_id = tu.userid
-                                        WHERE vr.id = '$category_id'
+                                        WHERE vr.id = '$category_id' AND tu.photo != ''
                                         ORDER BY bd.amount DESC");
                               $request_total_votes = [];
                               $total_votes_in_system = 0;
@@ -106,6 +108,9 @@ $category_id = mysqli_escape_string($db, $_GET['token']);
                               });
                               foreach ($request_total_votes as $key => $value) {
                                   $matched_users = $match_user_info[$key];
+                                  if (!is_file("uploads/profile/{$matched_users['photo']}") || !file_exists("uploads/profile/{$matched_users['photo']}")) {
+                                      continue;
+                                  }
                                   $percent_vote= 0;
                                   if($total_votes_in_system > 0)
                                   $percent_vote = number_format((float)(($value / $total_votes_in_system) * 100), 1, '.', '');
