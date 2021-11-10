@@ -4232,3 +4232,13 @@ html:not([dir="rtl"]) .noUi-horizontal .noUi-handle {
   top: -10px;
   max-height: 54px;
 }
+.whatsapp-logo{
+  border-radius: 50%;
+}
+@media (max-width: 768px){
+  .whatsapp-logo{
+    width: 30px;
+    margin-left: 23px;
+    border-radius: 50%;
+  }
+}

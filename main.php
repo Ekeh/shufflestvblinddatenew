@@ -182,7 +182,9 @@ function get_trend_profile_status_name($status) {
                                         <li><a href="index.php?p=logout">Sign Out</a></li>
                                     </ul>
                                 </li>
-
+                                <li class="header__nav-item">
+                                    <a href="https://api.whatsapp.com/send?phone=+2348035729461" target="_blank" class="header__nav-link" title="Chat us on Whapsapp"><img class="whatsapp-logo" src="img/whatsapplogo.png" /></a>
+                                </li>
                             <?php
                             }
                             ?>
