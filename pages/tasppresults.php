@@ -53,7 +53,7 @@ $category = mysqli_fetch_assoc($category_sql);
     <div class="container">
         <div class="dashbox">
             <div class="dashbox__title">
-                <h3><i class="icon ion-ios-trophy"></i><?=$category['name']?>  - VOTES</h3>
+                <h3><i class="icon ion-ios-trophy"></i><?=$category['name']?>  - TOP 20 VOTES WILL BE CONSIDERED</h3>
 
                 <div class="dashbox__wrap">
                     <a class="dashbox__refresh" href=""><i class="icon ion-ios-refresh"></i></a>
@@ -66,6 +66,7 @@ $category = mysqli_fetch_assoc($category_sql);
                           <table class="main__table main__table--dash">
                               <thead>
                               <tr>
+                                  <th>S/N</th>
                                   <th>MATCH</th>
                                   <th>TOTAL VOTES</th>
                               </tr>
@@ -106,7 +107,10 @@ $category = mysqli_fetch_assoc($category_sql);
                                   if ($item1 == $item2) return 0;
                                   return $item1 < $item2 ? 1 : -1;
                               });
+                              $counter = 0;
+                              $sn = 1;
                               foreach ($request_total_votes as $key => $value) {
+                                  $counter++;
                                   $matched_users = $match_user_info[$key];
                                   if (!is_file("uploads/profile/{$matched_users['photo']}") || !file_exists("uploads/profile/{$matched_users['photo']}")) {
                                       continue;
@@ -116,6 +120,7 @@ $category = mysqli_fetch_assoc($category_sql);
                                   $percent_vote = number_format((float)(($value / $total_votes_in_system) * 100), 1, '.', '');
                                   ?>
                                   <tr style="border-bottom: 1px dotted #fff;">
+                                      <td> <div class="main__table-text"><?=$sn?></div></td>
                                       <td style="padding-bottom: 10px;">
                                           <div class="main__table-text">
                                               <a href="index.php?p=tasppvote&token=<?=$matched_users['user_id']?>" title="<?=$matched_users['username']?>">
@@ -128,6 +133,8 @@ $category = mysqli_fetch_assoc($category_sql);
                                       </td>
                                   </tr>
                                   <?php
+                                  $sn++;
+                                  if($counter == 30) break;
                               }
                               ?>
 

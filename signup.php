@@ -61,7 +61,7 @@ if($refid==''){$refid='23120';}
 
 
 $sql3 = mysqli_query(
-$db,"INSERT into tbl_users set email='$stremail', password='$password',phone='$strphone',useripaddress='$useripaddress',gender='$gender',activation_status='1',ref='$refid', profile_type='" . PROFILE_FREE . "'");
+$db,"INSERT into tbl_users set email='$stremail', password='$password',phone='$strphone',useripaddress='$useripaddress',gender='$gender',activation_status='1',ref='$refid', profile_type='0'");
 
 
 

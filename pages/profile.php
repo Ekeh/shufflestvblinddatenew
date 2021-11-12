@@ -1,4 +1,6 @@
 <?php
+error_reporting(E_ALL);
+ini_set('display_errors', '1');
 if(!isset($_COOKIE['userid'])){
     ?>
     <script type="text/javascript">
@@ -13,6 +15,7 @@ if(!isset($_COOKIE['userid'])){
 $user_id = $_COOKIE['userid'];
 $msg='';
 $image = '';
+
 if(isset($_POST['updatenow'])){
     $strfname=mysqli_real_escape_string($db,$_POST['fname']);
     $strlname=mysqli_real_escape_string($db,$_POST['lname']);
@@ -22,7 +25,7 @@ if(isset($_POST['updatenow'])){
     $profile=mysqli_real_escape_string($db,$_POST['profile']);
     $username=mysqli_real_escape_string($db,$_POST['username']);
     $phone = ltrim($phone, '0');
-///$strphone="+".$countryCode.$phone;
+    $profile_type =  mysqli_real_escape_string($db,$_POST['profile_type']);
     $strphone=$phone;
     $description = mysqli_real_escape_string($db,$_POST['description']);
 
@@ -83,11 +86,12 @@ if(isset($_POST['updatenow'])){
 
                 if($image==''){
 
+
                     $sql3 = mysqli_query(
-                        $db,"UPDATE tbl_users set fname='$strfname',lname='$strlname', username='$username', gender='$gender', description = '$description' where userid='$user_id'");
+                        $db,"UPDATE tbl_users set fname='$strfname',lname='$strlname', username='$username', gender='$gender', description = '$description', profile_type = '". $profile_type ."' where userid='$user_id'");
                 }else{
                     $sql3 = mysqli_query(
-                        $db,"UPDATE tbl_users set fname='$strfname',lname='$strlname', username='$username',gender='$gender',photo='$imagename', description = '$description' where userid='$user_id'");
+                        $db,"UPDATE tbl_users set fname='$strfname',lname='$strlname', username='$username',gender='$gender',photo='$imagename', description = '$description', profile_type = '". $profile_type ."' where userid='$user_id'");
                 }
                 if($sql3){
 
@@ -116,7 +120,7 @@ if(isset($_POST['updatenow'])){
                     $cookie_id = "userid";
                     $cookie_idvalue = $user_id;
                     setcookie($cookie_id, $cookie_idvalue, time() + (3600*24*365)); // 3600 = 1 hour*/
-                   
+
                 }
 
             }
@@ -170,6 +174,7 @@ $photo=$rows['photo'];
 $username=$rows['username'];
 $gender=$rows['gender'];
 $description=$rows['description'];
+$profile_type = $rows['profile_type'];
 ?>
 
 
@@ -428,7 +433,7 @@ $description=$rows['description'];
                                 <div class="col-12 col-md-6 col-lg-12 col-xl-6">
                                     <div class="form__group">
                                         <label class="form__label" for="gender">Gender</label>
-                                        <select name="gender" id="gender" class="form__select">
+                                        <select name="gender" required id="gender" class="form__select">
                                             <option value="">&lt;-- Choose Gender --&gt;</option>
                                             <option value="male" <?php if($gender == 'male') echo 'selected'; ?>>Male</option>
                                             <option value="female" <?php if($gender == 'female') echo 'selected'; ?>>Female</option>
@@ -439,6 +444,16 @@ $description=$rows['description'];
                                     <div class="form__group">
                                         <label class="form__label" for="description">Description</label>
                                         <textarea id="description" type="text" required name="description" rows="5" class="form__input" placeholder="Description"><?=$description?></textarea>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-md-6 col-lg-12 col-xl-6">
+                                    <div class="form__group">
+                                        <label class="form__label" for="profile_type">Profile Type</label>
+                                        <select name="profile_type" required id="profile_type" class="form__select">
+                                            <option value="">&lt;-- Choose Profile Type --&gt;</option>
+                                            <option value="<?=PROFILE_FREE?>" <?php if($profile_type == PROFILE_FREE) echo 'selected'; ?>>Blind Date</option>
+                                            <option value="<?=PROFILE_TASPP?>" <?php if($profile_type == PROFILE_TASPP) echo 'selected'; ?>>Taspp</option>
+                                        </select>
                                     </div>
                                 </div>
                                 <div class="col-12 col-md-6 col-lg-12 col-xl-6">

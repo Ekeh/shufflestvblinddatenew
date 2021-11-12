@@ -59,6 +59,7 @@ if(mysqli_num_rows($sql_check) != '0')
     </script>
     <?php
 }else {
+   // dump("UPDATE `tbl_users` SET profile_type = '" . PROFILE_TASPP . "' WHERE userid = '$user_id'");
    /* dump("INSERT INTO `tbl_taspp_subscription`(`user_id`, `category_id`, `created_at`)
                       VALUES ('$user_id','$category_id', '" . date("Y-m-d H:i:s") . "')");*/
     $sql_subscribe = mysqli_query($db, "INSERT INTO `tbl_taspp_subscription`(`user_id`, `category_id`, `created_at`)
@@ -67,13 +68,21 @@ if(mysqli_num_rows($sql_check) != '0')
         $sql_bank_details = mysqli_query($db,
             "INSERT INTO `tbl_bank_details`(`user_id`, `bank_id`, `account_name`, `account_number`, `created_at`) 
                           VALUES ('$user_id','$bank_id','$account_name','$account_number', '" . date("Y-m-d H:i:s") . "')");
-        mysqli_query($db,
+      $profile_update =  mysqli_query($db,
             "UPDATE `tbl_users` SET profile_type = '" . PROFILE_TASPP . "' WHERE userid = '$user_id'");
-        ?>
-        <script type="text/javascript">
-            alert("Your registration has been completed successfully.");
-        </script>
-        <?php
+      if(mysqli_affected_rows($db) > 0) {
+          ?>
+          <script type="text/javascript">
+              alert("Your registration has been completed successfully.");
+          </script>
+          <?php
+      }else {
+          ?>
+          <script type="text/javascript">
+              alert("Error occurred while registering your information.");
+          </script>
+          <?php
+      }
     } else {
         ?>
         <script type="text/javascript">
@@ -148,8 +157,8 @@ if(mysqli_num_rows($sql_check) != '0')
                                             <div class="col-12">
                                                 <div class="form__group">
                                                     <label class="form__label" for="email">Account Number</label>
-                                                    <input id="account-number" type="number" required value="0236070315" name="account_number" class="form__input no-margin-bottom" placeholder="Enter Account Number">
-                                                    <input id="account-name-hidden" type="hidden" name="account_name" value="Chuks" />
+                                                    <input id="account-number" type="number" required name="account_number" class="form__input no-margin-bottom" placeholder="Enter Account Number">
+                                                    <input id="account-name-hidden" type="hidden" name="account_name" />
                                                     <div class="margin-left-10"><span id="account-name" class="section__text"><?=isset($_POST['account_name']) ? $_POST['account_name'] : ''?></span></div>
                                                 </div>
                                             </div>
