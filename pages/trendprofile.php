@@ -125,7 +125,6 @@ if(isset($_POST['trend'])){
                                     <thead>
                                     <tr>
                                         <th>TITLE</th>
-                                        <th>STATUS</th>
                                         <th>START DATE</th>
                                         <th>END DATE</th>
                                         <th>CREATED AT</th>
@@ -155,7 +154,6 @@ if(isset($_POST['trend'])){
                                     while ($rows = mysqli_fetch_array($sql)) {
                                     $id = $rows['id'];
                                     $name = $rows['name'];
-                                    $status = $rows['status'];
                                     $start_date = $rows['start_date'];
                                     $end_date = $rows['end_date'];
                                     $created_at = $rows['created_at'];
@@ -163,9 +161,6 @@ if(isset($_POST['trend'])){
                                     <tr>
                                         <td>
                                             <div class="main__table-text"><?=$name?></div>
-                                        </td>
-                                        <td>
-                                            <div class="main__table-text"><?=get_trend_profile_status_name($status)?></div>
                                         </td>
 
                                         <td>

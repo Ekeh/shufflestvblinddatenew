@@ -70,12 +70,16 @@ if(mysqli_num_rows($sql_check) != '0')
                           VALUES ('$user_id','$bank_id','$account_name','$account_number', '" . date("Y-m-d H:i:s") . "')");
       $profile_update =  mysqli_query($db,
             "UPDATE `tbl_users` SET profile_type = '" . PROFILE_TASPP . "' WHERE userid = '$user_id'");
-      if(mysqli_affected_rows($db) > 0) {
+      if($profile_update) {
           ?>
           <script type="text/javascript">
               alert("Your registration has been completed successfully.");
+              setTimeout(function(){
+                  window.location.href = 'index.php?p=taspp';
+              }, 100);
           </script>
           <?php
+          exit;
       }else {
           ?>
           <script type="text/javascript">

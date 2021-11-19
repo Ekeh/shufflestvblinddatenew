@@ -24,7 +24,7 @@ $phone_number_check = check_number($phone);
 if(!$phone_number_check || $phone_number_check === PHONE_NUMBER_NOT_NUMBER) {
 $msg="<div class='alert alert-block alert-danger'> Invalid Phone Number : Must be Numbers </div>";
 }else if($phone_number_check === PHONE_NUMBER_MUST_BE_080_070_090_081) {
-$msg="<div class='alert alert-block alert-danger'> Invalid Phone Number: Phone number must start with 080, 070, 090, 081. </div>";
+$msg="<div class='alert alert-block alert-danger'> Invalid Phone Number: Phone number must start with 0 and 11 digits length. </div>";
 }else if($phone_number_check === PHONE_NUMBER_MUST_BE_11_DIGITS) {
 $msg="<div class='alert alert-block alert-danger'> Invalid Phone Number: Phone number must 11 digits. </div>";
 }else /* if(strlen($phone) != 10) {
@@ -161,7 +161,7 @@ function check_number($number) {
     }
 
     //Checking if number starts with 080, 090, 070 and 081
-    elseif(!preg_match('/^080/', $number) and !preg_match('/^070/', $number) and !preg_match('/^090/', $number) and !preg_match('/^081/', $number)) {
+    elseif(!preg_match('/^0/', $number)) {
         return PHONE_NUMBER_MUST_BE_080_070_090_081;
     }
 

@@ -51,7 +51,7 @@
                 <!-- end title -->
 
                 <div tabindex="0" style="padding-bottom: 49px;padding-top: 19px;background-color: #1a191f;" class="plyr plyr--full-ui plyr--video plyr--html5 plyr--paused plyr--stopped plyr--pip-supported plyr--fullscreen-enabled plyr--captions-enabled">
-                    <iframe width="560" height="315" src="https://www.youtube.com/embed/_0lG4uI4bOM" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    <iframe width="560" height="315" src="https://www.youtube.com/embed/ZeEDj_hMZAk" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                 </div>
             </div>
 

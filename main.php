@@ -125,7 +125,7 @@ function get_trend_profile_status_name($status) {
 							<!-- end dropdown -->
                             <!-- dropdown Skilled Partner Program (SPP)-->
                             <li class="header__nav-item">
-                                <a class="dropdown-toggle header__nav-link" href="index.php?p=taspp" role="button" aria-haspopup="true" aria-expanded="false">TASPP</a>
+                                <a class="dropdown-toggle header__nav-link" href="index.php?p=tasppnotice" role="button" aria-haspopup="true" aria-expanded="false">TASPP</a>
                             </li>
                             <!-- end dropdown -->
 

@@ -26,8 +26,15 @@ function resize_images(){
             echo $filename.' resize Success!<br />';
         }
     }
-    dump($images);
 }
+
+function get_unique_string()
+{
+    $number = rand(100,100000);
+    $time=time();
+    return $number.''.$time;
+}
+
 
 
 function resizeImage($SrcImage,$DestImage, $MaxWidth,$MaxHeight,$Quality)

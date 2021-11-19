@@ -30,6 +30,7 @@ if(isset($_POST['updatenow'])){
     $description = mysqli_real_escape_string($db,$_POST['description']);
 
     $error=0;
+    $imagename = '';
 
 
     if($strfname=='' || $strlname==''||$stremail=='' || $gender=='' ){
@@ -66,10 +67,12 @@ if(isset($_POST['updatenow'])){
                             $uploadOk = 0;
                             $error=1;
                         } else {
-                            $imagename=$phone.".png";
+                            $old_picture = $target_dir.$phone."png";
+                            $imagename= md5(get_unique_string()).".png";
                             $filename=$target_dir .$imagename;
                             if (move_uploaded_file($_FILES["photo"]["tmp_name"], $filename)) {
                                 resizeImage($filename,$filename,DEFAULT_IMAGE_WIDTH,DEFAULT_IMAGE_HEIGHT,80);
+                               unlink($old_picture);
                                 $msg= "<div class='alert-success alert'>The file ". $imagename. " has been uploaded.</div>";
                             } else {
                                 $msg= "<div class='alert-danger alert'>Sorry, there was an error uploading your file.</div>";
