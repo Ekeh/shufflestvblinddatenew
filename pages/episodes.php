@@ -71,6 +71,27 @@
                                                 </div>
                                             </td>
                                         </tr>
+                                        <tr>
+                                            <td>
+                                                <div class="main__table-text">Season 1, EP 2</div>
+                                            </td>
+                                            <td>
+                                                <div class="main__table-text">20/11/2021</div>
+                                            </td>
+                                            <td>
+                                                <div class="main__table-text">
+                                                    <a href="https://www.youtube.com/watch?v=P-J9tZ6EF0o" target="_blank" class="btn btn-default margin-right-20">
+                                                        <span>YouTube</span>
+                                                    </a>
+                                                    <a href="index.php?p=blinddatewatch2" onclick="return confirm('You will be charged N<?=EPISODE_VIEW_AMOUNT?> per view from your wallet to view this episode. Do you want to continue?')" class="btn btn-success margin-right-20">
+                                                        <span>ShufflesTV</span>
+                                                    </a>
+                                                    <!--<a href="#" class="btn btn-danger margin-right-20">
+                                                        <span>Comments</span>
+                                                    </a>-->
+                                                </div>
+                                            </td>
+                                        </tr>
 <tr>
     <td>
         <br><br>
