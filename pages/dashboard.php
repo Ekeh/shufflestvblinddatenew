@@ -26,7 +26,7 @@
             </marquee>
 
     </section>
-    <section class="section__text blink_me" style="position: relative; z-index: 9999;">Season 3 is live now... <a href="index.php?p=episodes"> Click here to watch.</a></section>
+    <section class="section__text blink_me" style="position: relative; z-index: 9999;">Season 5 is live now... <a href="index.php?p=episodes"> Click here to watch.</a></section>
 
     <!-- home bg -->
     <div class="owl-carousel home__bg">
@@ -51,7 +51,7 @@
                 <!-- end title -->
 
                 <div tabindex="0" style="padding-bottom: 49px;padding-top: 19px;background-color: #1a191f;" class="plyr plyr--full-ui plyr--video plyr--html5 plyr--paused plyr--stopped plyr--pip-supported plyr--fullscreen-enabled plyr--captions-enabled">
-                    <iframe width="560" height="315" src="https://www.youtube.com/embed/VnxKnnZj64M" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    <iframe width="560" height="315" src="https://www.youtube.com/embed/RincZmBSmrg" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                 </div>
             <!-- end player -->
             <div class="col-12 col-xl-6">
