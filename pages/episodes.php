@@ -52,6 +52,27 @@
                                         <tbody>
                                         <tr>
                                             <td>
+                                                <div class="main__table-text">Season 1, EP 6</div>
+                                            </td>
+                                            <td>
+                                                <div class="main__table-text">18/01/2022</div>
+                                            </td>
+                                            <td>
+                                                <div class="main__table-text">
+                                                    <a href="https://www.youtube.com/watch?v=nxB2qVrk2wI" target="_blank" class="btn btn-default margin-right-20">
+                                                        <span>YouTube</span>
+                                                    </a>
+                                                    <a href="index.php?p=blinddatewatch6" onclick="return confirm('You will be charged N<?=EPISODE_VIEW_AMOUNT?> per view from your wallet to view this episode. Do you want to continue?')" class="btn btn-success margin-right-20">
+                                                        <span>ShufflesTV</span>
+                                                    </a>
+                                                    <!--<a href="#" class="btn btn-danger margin-right-20">
+                                                        <span>Comments</span>
+                                                    </a>-->
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
                                                 <div class="main__table-text">Season 1, EP 5</div>
                                             </td>
                                             <td>

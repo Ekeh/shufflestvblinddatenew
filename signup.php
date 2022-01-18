@@ -17,7 +17,7 @@ $strpassword=mysqli_real_escape_string($db,$_POST['password']);
 $strconfirmpassword=mysqli_real_escape_string($db,$_POST['confirmpassword']);
 $gender=mysqli_real_escape_string($db,$_POST['gender']);
 $strphone="+".$countryCode.$phone;
-var_dump($_POST);
+//var_dump($_POST);
 //exit();
 $password=md5($strpassword);
 $phone_number_check = check_number($phone);
